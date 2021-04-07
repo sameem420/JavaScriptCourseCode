@@ -1,23 +1,23 @@
 // let text = "Hello World, I am learning JavaScript"
 // let names = ["Ali", "Zain", "usman"];
 
-let myList = document.querySelector("#myList")
-let AddBTN = document.querySelector(".btnAdd");
-let listItem = document.getElementById("listItem");
+// let myList = document.querySelector("#myList")
+// let AddBTN = document.querySelector(".btnAdd");
+// let listItem = document.getElementById("listItem");
 
 
-let myName = prompt("Enter your name",);
-console.log(myName)
+// let myName = prompt("Enter your name",);
+// console.log(myName)
 
-AddBTN.addEventListener('click', function() {
-    let listItemValue = listItem.value;
-    let li = document.createElement("li");
-    let btnEdit = document.createElement("button");
+// AddBTN.addEventListener('click', function() {
+//     let listItemValue = listItem.value;
+//     let li = document.createElement("li");
+//     let btnEdit = document.createElement("button");
 
-    li.innerHTML = listItemValue;
-    myList.appendChild(li);
-    console.log("Input is :", myList);
-});
+//     li.innerHTML = listItemValue;
+//     myList.appendChild(li);
+//     console.log("Input is :", myList);
+// });
 // Name = "Ali";
 // console.log(Name)
 // let Name;
@@ -74,3 +74,25 @@ AddBTN.addEventListener('click', function() {
 
 // console.log(names[0]);
 
+class Parent {
+    constructor(Name, age) {
+        this.Name = Name
+        this.age = age
+    }
+
+    showName() {
+        console.log(this.Name)
+    }
+    
+}
+
+class Child extends Parent {
+    constructor(Name) {
+        super()
+        this.Name = Name
+    }
+    
+}
+
+let childobj = new Child("Ali", 20)
+console.log(childobj.showName())
