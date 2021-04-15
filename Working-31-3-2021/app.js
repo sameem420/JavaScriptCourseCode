@@ -41,9 +41,9 @@
 // heading.style.backgroundColor = "red"
 // console.log(heading.innerText)
 
-// function myFunc() {
-//     console.log(Name.value)
-// }
+function myFunc() {
+    console.log("This is the function I called")
+}
 
 //  let num1 = 100;
 //  let num2 = "100";
@@ -74,25 +74,25 @@
 
 // console.log(names[0]);
 
-class Parent {
-    constructor(Name, age) {
-        this.Name = Name
-        this.age = age
-    }
+// class Parent {
+//     constructor(Name, age) {
+//         this.Name = Name
+//         this.age = age
+//     }
 
-    showName() {
-        console.log(this.Name)
-    }
+//     showName() {
+//         console.log(this.Name)
+//     }
     
-}
+// }
 
-class Child extends Parent {
-    constructor(Name) {
-        super()
-        this.Name = Name
-    }
+// class Child extends Parent {
+//     constructor(Name) {
+//         super()
+//         this.Name = Name
+//     }
     
-}
+// }
 
-let childobj = new Child("Ali", 20)
-console.log(childobj.showName())
+// let childobj = new Child("Ali", 20)
+// console.log(childobj.showName())
