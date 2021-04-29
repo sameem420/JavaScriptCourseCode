@@ -1,12 +1,17 @@
-import logo from './logo.svg';
 import './App.css';
+import MyApp from './components/MyApp'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
+    <>
       <h1>Hello World</h1>
       <h2>jkajhjajkdwa</h2>
-    </div>
+      <p>{new Date().toString()}</p>
+      <ul>
+        <li>awafaw</li>
+      </ul>
+      <MyApp Name="Hazaifa" />
+    </>
   );
 }
 
