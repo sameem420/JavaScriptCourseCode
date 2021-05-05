@@ -7,9 +7,16 @@ import PropType from 'prop-types';
 export default class MyApp extends Component {
   constructor(props) {
     super(props);
+    this.userName = "Ali"
     this.state =  {
-      count : 1
+      count : 0
     }
+    this.changeName = this.changeName.bind(this)
+  }
+
+  changeName() {
+    this.userName = "blabla"
+    this.forceUpdate();
   }
 
   static propTypes = {
@@ -18,7 +25,12 @@ export default class MyApp extends Component {
   }
 
   render() {
-    this.props.HelloWorld()
+    let myArray = ["Aamir","Pinger",2]
+
+    let [firstName, ...remaining] = myArray
+    console.log(firstName)
+    console.log(remaining)
+    // console.log(degrees)
     return (
       <div id="container">
         <img src={natureImage} alt="Nature Wallpaper" width="100%" height="100%"/>
@@ -27,6 +39,8 @@ export default class MyApp extends Component {
         <PropsExample Name={this.state.count}/>
         <h1>{this.state.count}</h1>
         <button onClick={() => this.setState({ count: this.state.count+1 })}>Increment</button>
+        <h2>{this.userName}</h2>
+        <button onClick={this.changeName}>Update Name</button>
         <table style={{ color: "white", border: "1px solid"}} id="table">
           <thead>
             <tr>
@@ -43,3 +57,4 @@ export default class MyApp extends Component {
     )
   }
 }
+
