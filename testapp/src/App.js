@@ -2,6 +2,24 @@ import './App.css';
 // import MyApp from './components/MyApp'
 import React from 'react';
 
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { isLoggedIn: false };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    // this.setState({ hasError: true})
+    // You can also log the error to an error reporting service
+    console.log(error, errorInfo);
+  }
+
+  render() {
+      return this.state.isLoggedIn && <h1>Something went wrong.</h1>
+  }
+}
+
+
 class App extends React.Component {
   constructor() {
     console.log("Constructor")
@@ -18,16 +36,16 @@ class App extends React.Component {
     console.log("ComponentDidMount");
   }
 
-  static getDerivedStateFromProps(props, state) {
-    return(
-      console.log(state, props)
-    )
-  }
+  // static getDerivedStateFromProps(props, state) {
+  //   return(
+  //     console.log(state, props)
+  //   )
+  // }
 
-  componentWillUnmount() {
-    console.log("ComponentWillUnmount");
-    this.HelloWorld();
-  }
+  // componentWillUnmount() {
+  //   console.log("ComponentWillUnmount");
+  //   this.HelloWorld();
+  // }
 
   // shouldComponentUpdate() {
   //   return (
@@ -35,28 +53,30 @@ class App extends React.Component {
   //   )
   // }
 
-  getSnapshotBeforeUpdate(prevProps, prevState) {
+  // getSnapshotBeforeUpdate(prevProps, prevState) {
 
-    return (
-    console.log(prevState))
-    }
+  //   return (
+  //   console.log(prevState))
+  //   }
 
   HelloWorld = () => console.log("Hello World!");
 
   render() {
     console.log("Rendering...");
   return (
+    // <ErrorBoundary>
     <div className="App">
       <h1>Hello World</h1>
       <h2>jkajhjajkdwa</h2>
       <p>{new Date().toString()}</p>
-
-      <button onClick={() => this.setState({ Name: "Rohan" })}>Change Name</button>
+      <h2>{this.state.Name}</h2>
+      <button onKeyDown={() => this.setState({ Name: this.state.Name + true })}>Change Name</button>
       <ul>
         <li>awafaw</li>
       </ul>
       {/* <MyApp Name="Hazaifa" cityArray={[5,4]} HelloWorld={this.HelloWorld}  /> */}
     </div>
+    // </ErrorBoundary>
   );
 }
 }
