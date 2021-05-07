@@ -4,74 +4,44 @@ import './App.css';
 // import Navbar from './components/Navbar';
 // import MyApp from './components/MyApp';
 // import CounterApp from './components/CounterApp';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // import Button from './components/Button';
 
 
-function UserGreeting(props) {
-  return <h1>Welcome back!</h1>;
-}
+function App() {
+    const [userData, setUserData] = useState([]);
+    const [userName, setUserName] = useState('');
+    // const [flag, setFlag] = useState(false);
 
-function GuestGreeting(props) {
-  return <h1>Please sign up.</h1>;
-}
-
-function Greeting(props) {
-  const isLoggedIn = props.isLoggedIn;
-  return isLoggedIn ? <UserGreeting/> : <GuestGreeting/>
-  // if (isLoggedIn) {
-  //   return <UserGreeting />;
-  // }
-  // return <GuestGreeting />;
-}
-
-class App extends React.Component {
-  constructor() {
-    console.log("Constructor completed!")
-    super()
-    this.state = {
-      userData : [],
-      user: ''
-    }
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const userName = event.target.elements[0].value;
-    this.setState({
-      user: userName
-    })
+    setUserName(userName);
     // console.log(event.target.elements[0])
   }
 
-  componentDidMount() {
-    console.log("Component Did Mount completed")
-    fetch(`https://api.github.com/users/${user}`).then(response => response.json()).then(data => {
-      // this.setState({ userData: Object.values(data) })
-      const userProfile = [...this.state.userData, data];
-      this.setState({userData : userProfile});
-      // console.log("State Data",this.state.userData)
-      // console.log("Fetch API Data",data)
+  useEffect(() => {
+    fetch(`https://api.github.com/users/MHazaifa`).then(response => response.json()).then(data => {
+
+      console.log(data);
+      
+      const userProfile = [...userData,data];
+      // console.log("userProfile" , userProfile)
+      setUserData(userProfile);
+      // console.log("State Data",userData)
     })
     .catch(err => {
       console.log(err)
     })
-  }
+    return () => {
+      // Clean up the subscription
+    };
+  }, []);
 
-  // componentWillUnmount() {
-  //   this.state.userData = '';
-  //   console.log("Component will unmount completed", this.state.userData)
-  // }
-  // const [counter, setCounter] = useState(0);
-  // const handleClick = (incrementValue) => setCounter(counter + incrementValue); 
-  render() {
   return(
     <div className="App">
-      <Greeting isLoggedIn={true} />
       <h1>User Data :</h1>
-      
-      {this.state.userData.map((user, index) => {     
+      {userData.map((user, index) => {     
         return(
           <div key={index}>   
             <h1>{user.name}</h1>
@@ -80,19 +50,12 @@ class App extends React.Component {
           </div>
           )
       })}
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <input placeholder="Enter your Github username"/>
         <button>Submit</button>
       </form>
-      {/* <h1>{counter}</h1>
-      <button onClick={()=> setCounter(counter+200)}>+200</button>
-      <Button onButtonClick={handleClick}  incrementValue={1} />
-      <Button onButtonClick={handleClick} incrementValue={10} />
-      <Button onButtonClick={handleClick} incrementValue={50} />
-      <Button onButtonClick={handleClick} incrementValue={100} /> */}
     </div>
   )
-}
 }
 
 
