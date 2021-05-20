@@ -1,9 +1,9 @@
-
+import MyApp from './MyApp';
 
 const Home = (props) => {
     return (     
         <div>
-            <h1>This value is from Home Component = {props.Name}</h1>
+            <MyApp />
         </div>
     )
 }

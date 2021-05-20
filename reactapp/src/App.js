@@ -1,45 +1,68 @@
 // import logo from './assets/images/logo.svg';
 import './App.css';
-// import Home from './components/Home';
+import Home from './components/Home';
 // import Navbar from './components/Navbar';
 // import MyApp from './components/MyApp';
 // import CounterApp from './components/CounterApp';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext, useRef, useReducer } from 'react';
 // import Button from './components/Button';
 
+const Names = {
+  name1: "Bilal",
+}
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'setNameHazaifa':
+      return {name1: "Hazaifa"};
+    case 'setNameSameem':
+      return {name1: "Sameem"};
+    default:
+      return state;
+  }
+}
+
+export const NameContext = createContext();
 
 function App() {
     const [userData, setUserData] = useState([]);
     const [userName, setUserName] = useState('');
-    // const [flag, setFlag] = useState(false);
+    const InputRef = useRef();
+    const buttonRef = useRef();
+    const [state, dispatch] = useReducer(reducer, Names);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const userName = event.target.elements[0].value;
+    // const userName = event.target.elements[0].value;
+    const userName = InputRef.current.value;
+    console.log(userName);
     setUserName(userName);
-    // console.log(event.target.elements[0])
+    InputRef.current.value = '';
+    InputRef.current.focus();
   }
 
-  useEffect(() => {
-    fetch(`https://api.github.com/users/MHazaifa`).then(response => response.json()).then(data => {
+  const clickHandler = () => {
+    console.log(buttonRef.current.click())
+  } 
 
-      console.log(data);
-      
+  useEffect(() => {
+    fetch(`https://api.github.com/users/${userName}`).then(response => response.json()).then(data => {
+      console.log(data);    
       const userProfile = [...userData,data];
-      // console.log("userProfile" , userProfile)
-      setUserData(userProfile);
-      // console.log("State Data",userData)
+      setUserData(userProfile); 
     })
     .catch(err => {
       console.log(err)
-    })
-    return () => {
-      // Clean up the subscription
-    };
-  }, []);
+    });
+  }, [userName]);
 
   return(
+    <NameContext.Provider value={{state, dispatch}}>
+      
     <div className="App">
+      Name: {state.name1}
+      <button onClick={() => dispatch({type: 'setNameHazaifa'})}>-</button>
+      <Home />
       <h1>User Data :</h1>
       {userData.map((user, index) => {     
         return(
@@ -51,13 +74,14 @@ function App() {
           )
       })}
       <form onSubmit={handleSubmit}>
-        <input placeholder="Enter your Github username"/>
-        <button>Submit</button>
+        <input placeholder="Enter your Github username" ref={InputRef} />
+        <button ref={buttonRef}>Submit</button>
       </form>
+      <button onClick={clickHandler}>This button will click Submit button</button>
     </div>
+    </NameContext.Provider>
   )
 }
-
 
 
 

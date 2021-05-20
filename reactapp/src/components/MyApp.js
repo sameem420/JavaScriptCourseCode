@@ -1,11 +1,13 @@
 import Home from './Home';
+import { useContext } from 'react';
+import { NameContext } from '../App';
 
 const MyApp = (props) => {
+  const { state, dispatch } = useContext(NameContext);
     return (
       <div className="Appstyle">
-        <h1>Hello, My Name is {props.Name}</h1>
-        <h1>Hello, My Age is {props.Age}</h1>
-        <Home Name={props.Name} />
+        <h1>Name from MyApp Component : {state.name1}</h1>
+        <button onClick={() => dispatch({type: 'setNameSameem'})}>+</button>
       </div>
     );
   }
