@@ -36,6 +36,9 @@ function App() {
           </Route>
           <Route path="/features" component={Features} />
           <Route path="/pricing" component={Pricing} />
+          <Route path="*">
+            <NoMatch />
+          </Route>
         </Switch>
       </div>
     </Router>
